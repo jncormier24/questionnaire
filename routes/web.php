@@ -2,10 +2,13 @@
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware([])->group(function () {
     Route::get('/', 'AppController@index');
     Route::resource('question', 'QuestionController');
     Route::resource('quiz', 'QuizController');
     Route::resource('quizcategory', 'QuizCategoryController');
+    Route::get('/name', function () {
+        return 'hello joe';
+    });
 });
 

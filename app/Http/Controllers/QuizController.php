@@ -7,6 +7,9 @@ use App\Quiz;
 
 class QuizController extends Controller
 {
+    public function __construct () {
+        $this->middleware('auth')->only('store');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +40,17 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $quiz = Quiz::create([
+            'name' => request('name'),
+            'quiz_category_id' => request('quiz_category_id'),
+            'updated_by_user_id' => auth()->id
+        ]);
+
+        return redirect('/quiz/' . $quiz->id . '/edit');
     }
 
     /**
