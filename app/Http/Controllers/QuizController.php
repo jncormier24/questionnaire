@@ -8,7 +8,7 @@ use App\Quiz;
 class QuizController extends Controller
 {
     public function __construct () {
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth');
     }
     /**
      * Display a listing of the resource.
@@ -29,7 +29,7 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return view('app.quiz.edit');
+        return view('app.quiz.create');
     }
 
     /**
@@ -46,22 +46,11 @@ class QuizController extends Controller
 
         $quiz = Quiz::create([
             'name' => request('name'),
-            'quiz_category_id' => request('quiz_category_id'),
-            'updated_by_user_id' => auth()->id
+            'quiz_category_id' => request('quiz_category_id') ? request('quiz_category_id') : 0,
+            'updated_by_user_id' => auth()->user()->id
         ]);
 
-        return redirect('/quiz/' . $quiz->id . '/edit');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return redirect("/quiz");
     }
 
     /**
@@ -82,9 +71,13 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Quiz $quiz)
     {
-        //
+        $quiz->update(request()->validate([
+            'name' => 'required'
+        ]));
+
+        return redirect('/quiz');
     }
 
     /**
@@ -93,8 +86,10 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Quiz $quiz)
     {
-        //
+        $quiz->delete();
+
+        return redirect('/quiz');
     }
 }

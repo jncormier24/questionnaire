@@ -35,7 +35,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.question.create');
     }
 
     /**
@@ -46,18 +46,21 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $question = new \App\Question;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Question $question)
-    {
-        //
+        request()->validate([
+            'text' => 'required',
+            'notes' => 'required'
+        ]);
+
+        $question->text = $request->text;
+        $question->notes = $request->notes;
+        $question->answer_type_id = $request->answer_type_id ? $request->answer_type_id : 0;
+        $question->updated_by_user_id = auth()->id();
+
+        $question->save();
+
+        return redirect('/question');
     }
 
     /**
@@ -68,7 +71,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('app.question.edit', compact('question'));
     }
 
     /**
@@ -78,9 +81,14 @@ class QuestionController extends Controller
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(Question $question)
     {
-        //
+        $question->update(request()->validate([
+            'text' => 'required',
+            'notes' => 'required'
+        ]));
+
+        return redirect('/question');
     }
 
     /**
@@ -91,6 +99,8 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect('/question');
     }
 }
