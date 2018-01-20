@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\QuizCategory;
 
 class QuizCategoryController extends Controller
 {
+
+    public function __construct () {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,9 @@ class QuizCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $quizcats = QuizCategory::all();
+
+        return view('app.quizcat.all', compact('quizcats'));
     }
 
     /**
@@ -23,7 +31,7 @@ class QuizCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.quizCat.create');
     }
 
     /**
@@ -32,20 +40,19 @@ class QuizCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
-    }
+        $quizcategory = new QuizCategory;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        request()->validate([
+            'name' => 'required'
+        ]);
+
+        $quizcategory->name = request('name');
+        $quizcategory->updated_by_user_id = auth()->id();
+        $quizcategory->save();
+
+        return redirect('/quizcategory');
     }
 
     /**
@@ -54,9 +61,9 @@ class QuizCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(QuizCategory $quizcategory)
     {
-        //
+        return view('app.quizcat.edit', compact('quizcategory'));
     }
 
     /**
@@ -66,9 +73,13 @@ class QuizCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuizCategory $quizcategory)
     {
-        //
+        $quizcategory->update(request()->validate([
+            'name' => 'required'
+        ]));
+
+        return redirect('/quizcategory');
     }
 
     /**
@@ -77,8 +88,10 @@ class QuizCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(QuizCategory $quizcategory)
     {
-        //
+        $quizcategory->delete();
+
+        return redirect('/quizcategory');
     }
 }

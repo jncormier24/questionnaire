@@ -10,5 +10,9 @@
         <textarea class="form-control" name="notes">{{ old('notes') ?? $question->notes }}</textarea>
     </div>
 </div>
-<button class="btn btn-success">Save</button>
-<a href="/question" class="btn btn-danger">Cancel</a>
+<div class="form-group">
+    <button class="btn btn-success">Save</button>
+    <a href="/question" class="btn btn-danger">Cancel</a>
+</div>
+
+@include('app.partials._formerror')

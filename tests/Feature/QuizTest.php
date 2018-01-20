@@ -53,8 +53,7 @@ class QuizTest extends TestCase
     /** @test */
     public function aUserCanEditAQuiz()
     {
-        $user = factory(\App\User::class)->create();
-        $this->be($user);
+        $this->be($user = factory(\App\User::class)->create());
 
         $quiz = factory(\App\Quiz::class)->create();
 
@@ -64,7 +63,7 @@ class QuizTest extends TestCase
             'name' => 'Changed'
         ]);
 
-        $reponse = $this->get('/quiz')->assertSee('Changed');
+        $this->get('/quiz')->assertSee('Changed');
     }
 
     /** @test */

@@ -18,6 +18,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/quiz">Manage Quizzes</a></li>
                 <li><a href="/question">Manage Questions</a></li>
+                <li><a href="/quizcategory">Manage Quiz Categories</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
