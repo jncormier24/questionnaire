@@ -35,7 +35,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        return view('app.question.create');
+        $quizzes = \App\Quiz::all();
+        return view('app.question.create', compact('quizzes'));
     }
 
     /**
@@ -50,12 +51,15 @@ class QuestionController extends Controller
 
         request()->validate([
             'text' => 'required',
-            'notes' => 'required'
+            'notes' => 'required',
+            'quiz_id' => 'required',
+            'answer_type_id' => 'required'
         ]);
 
         $question->text = $request->text;
         $question->notes = $request->notes;
-        $question->answer_type_id = $request->answer_type_id ? $request->answer_type_id : 0;
+        $question->quiz_id = $request->quiz_id;
+        $question->answer_type_id = $request->answer_type_id;
         $question->updated_by_user_id = auth()->id();
 
         $question->save();
@@ -71,7 +75,8 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('app.question.edit', compact('question'));
+        $quizzes = \App\Quiz::all();
+        return view('app.question.edit', compact('question', 'quizzes'));
     }
 
     /**
@@ -85,7 +90,9 @@ class QuestionController extends Controller
     {
         $question->update(request()->validate([
             'text' => 'required',
-            'notes' => 'required'
+            'notes' => 'required',
+            'quiz_id' => 'required',
+            'answer_type_id' => 'required'
         ]));
 
         return redirect('/question');

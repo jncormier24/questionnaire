@@ -27,7 +27,10 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    {{ $question->text }}
+                    <p>
+                        {{ $question->text }}
+                    </p>
+                    <strong>{{ $question->quiz->name }}</strong>
                 </div>
                 <div class="panel-footer">
                     <form action="/question/{{ $question->id }}" method="POST">

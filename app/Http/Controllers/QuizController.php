@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Quiz;
+use App\QuizCategory;
 
 class QuizController extends Controller
 {
@@ -29,7 +30,8 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return view('app.quiz.create');
+        $quizCats = \App\QuizCategory::all();
+        return view('app.quiz.create', compact('quizCats'));
     }
 
     /**
@@ -61,7 +63,8 @@ class QuizController extends Controller
      */
     public function edit(Quiz $quiz)
     {
-        return view('app.quiz.edit', compact('quiz'));
+        $quizCats = \App\QuizCategory::all();
+        return view('app.quiz.edit', compact('quiz', 'quizCats'));
     }
 
     /**

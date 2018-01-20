@@ -31,9 +31,10 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <p>
-                        {{ $quiz->name }}
-                    </p>
+                        <p>
+                            {{ $quiz->name }}
+                        </p>
+                        <strong>{{ $quiz->category->name }}</strong>
                 </div>
                 <div class="panel-footer">
                     <div class="level">

@@ -40,7 +40,8 @@ class QuestionTest extends TestCase
 
         $this->patch("/question/{$question->id}", [
             'text' => 'Changed',
-            'notes' => 'Changed Notes'
+            'notes' => 'Changed Notes',
+            'answer_type_id' => 0
         ]);
 
         $this->get('/question')->assertSee('Changed');

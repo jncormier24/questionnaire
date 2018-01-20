@@ -3,6 +3,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\QuizCategory;
+use App\Quiz;
 
 class QuizTest extends TestCase
 {
@@ -90,5 +92,16 @@ class QuizTest extends TestCase
         $this->json('DELETE', "/quiz/{$quiz->id}");
 
         $this->assertDatabaseMissing('quiz', $quiz->toArray());
+    }
+
+    /** @test */
+    public function itCanHaveACategory () {
+        $user = factory(\App\User::class)->create();
+        $this->be($user);
+
+        $category = factory(QuizCategory::class)->create();
+        $quiz = factory(Quiz::class)->create(['quiz_category_id' => $category->id, 'updated_by_user_id' => $user->id]);
+
+        $this->assertDatabaseHas('quiz', $quiz->toArray());
     }
 }
