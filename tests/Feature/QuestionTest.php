@@ -38,10 +38,11 @@ class QuestionTest extends TestCase
 
         $this->post('/question', $question->toArray());
 
-        $this->patch("/question/{$question->id}", [
+        $response = $this->patch("/question/{$question->id}", [
             'text' => 'Changed',
             'notes' => 'Changed Notes',
-            'answer_type_id' => 0
+            'quiz_id' => 1,
+            'answer_type_id' => 1
         ]);
 
         $this->get('/question')->assertSee('Changed');
