@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class AnswerController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +18,7 @@ class AnswerController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        // 
     }
 
     /**
@@ -33,9 +27,19 @@ class AnswerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $data = request()->validate([
+            'type' => 'required',
+            'answer' => 'required',
+            'question_id' => 'required'
+        ]);
+
+        $data['answered_by_user_id'] = auth()->id();
+
+        $answer = Answer::save($data);
+
+        return $answer;
     }
 
     /**

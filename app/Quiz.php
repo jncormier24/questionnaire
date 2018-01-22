@@ -13,4 +13,8 @@ class Quiz extends Model
     public function category () {
         return $this->belongsTo(\App\QuizCategory::class, 'quiz_category_id');
     }
+
+    public function users () {
+        return $this->belongsToMany(\App\User::class);
+    }
 }

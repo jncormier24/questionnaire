@@ -104,4 +104,18 @@ class QuizTest extends TestCase
 
         $this->assertDatabaseHas('quiz', $quiz->toArray());
     }
+
+    /** @test */
+    public function itMayBeAssignedToAUser () {
+        $user = factory(\App\User::class)->create();
+        $this->be($user);
+
+        $quiz = factory(\App\Quiz::class)->create();
+
+        $this->post('/quiz/'. $quiz->id . '/user', [
+            'user_id' => $user->id
+        ]);
+
+        $this->assertCount(1, $quiz->users);
+    }
 }

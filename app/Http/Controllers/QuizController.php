@@ -63,8 +63,9 @@ class QuizController extends Controller
      */
     public function edit(Quiz $quiz)
     {
+        $users = \App\User::all();
         $quizCats = \App\QuizCategory::all();
-        return view('app.quiz.edit', compact('quiz', 'quizCats'));
+        return view('app.quiz.edit', compact('quiz', 'quizCats', 'users'));
     }
 
     /**
@@ -94,5 +95,23 @@ class QuizController extends Controller
         $quiz->delete();
 
         return redirect('/quiz');
+    }
+
+    /**
+     * Assign a user to the given quiz
+     * 
+     * @param Quiz $quiz
+     * @return \Illuminate\Http\Reponse
+     */
+    public function addUser(Quiz $quiz) {
+        request()->validate([
+            'user_id' => 'required|int'
+        ]);
+
+        $user = \App\User::find(request('user_id'));
+
+        $quiz->users()->save($user);
+
+        return redirect('/quiz/' . $quiz->id . '/edit');
     }
 }
