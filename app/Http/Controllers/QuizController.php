@@ -114,4 +114,14 @@ class QuizController extends Controller
 
         return redirect('/quiz/' . $quiz->id . '/edit');
     }
+
+    /**
+     * Starts a user taking a quiz
+     * 
+     * @param Quiz $quiz
+     * @return \Illuminate\Http\Response
+     */
+    public function showEvaluation(Quiz $quiz) {
+        return view('app.quiz.evaluation', compact('quiz'));
+    }
 }

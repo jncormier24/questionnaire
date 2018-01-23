@@ -12,5 +12,6 @@ Route::middleware(['auth'])->group(function () {
 
     // expanded routes
     Route::post('/quiz/{quiz}/user', 'QuizController@addUser');
+    Route::get('/quiz/evaluation/{quiz}', 'QuizController@showEvaluation');
 });
 
