@@ -9,6 +9,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('quiz', 'QuizController');
     Route::resource('quizcategory', 'QuizCategoryController');
     Route::resource('answer', 'AnswerController');
+    Route::resource('permission', 'PermissionController');
 
     // expanded routes
     Route::post('/quiz/{quiz}/user', 'QuizController@addUser');

@@ -16,10 +16,14 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
+            @can('create:quiz')
                 <li><a href="/quiz">Manage Quizzes</a></li>
                 <li><a href="/question">Manage Questions</a></li>
                 <li><a href="/quizcategory">Manage Quiz Categories</a></li>
+            @endcan
+                <li><a href="/permission">Manage Permissions</a></li>
             </ul>
+
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
