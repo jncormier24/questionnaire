@@ -34,12 +34,18 @@ class AnswerController extends Controller
             'answer' => 'required',
             'question_id' => 'required'
         ]);
-
         $data['answered_by_user_id'] = auth()->id();
 
-        $answer = Answer::save($data);
+        foreach ($data['answer'] as $answerData) {
+            Answer::save([
+                'type' => request('type'),
+                'answer' => $answerData,
+                'question_id' => request('question_id'),
+                'answered_by_user_id' => auth()->user()->id
+            ]);
+        }
 
-        return $answer;
+        return redirect('/home');
     }
 
     /**
