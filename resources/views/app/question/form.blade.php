@@ -1,5 +1,3 @@
-{{ csrf_field() }}
-
 <div class="form-group">
     <div class="field">
         <label for="text">Question</label>
@@ -28,7 +26,7 @@
 </div>
 <div class="form-group">
     <button class="btn btn-success">Save</button>
-    <a href="/question" class="btn btn-danger">Cancel</a>
+    <a href="{{ route('admin.question.index') }}" class="btn btn-danger">Cancel</a>
 </div>
 
 @include('app.partials._formerror')

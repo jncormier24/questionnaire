@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <form method="post" action="/quiz/{{ $quiz->id }}">
+            <form action="{{ route('admin.quiz.update', $quiz->id) }}" method="POST" >
                 {{ method_field('PATCH') }}
 
                 @include('app.quiz.form')
@@ -13,7 +13,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <form method="post" action="/quiz/{{ $quiz->id }}/user">
+            <form action="{{ route('admin.quiz.adduser', $quiz->id) }}" method="POST">
             {{ csrf_field() }}
                 <div class="form-group">
                     <label for="user_id">Assign a User</label>

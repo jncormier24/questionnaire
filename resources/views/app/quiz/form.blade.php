@@ -13,7 +13,7 @@
 </div>
 <div class="form-group">
     <button class="btn btn-default">Save</button>
-    <a href="#" class="btn btn-danger">Cancel</a>
+    <a href="{{ route('admin.quiz.index') }}" class="btn btn-danger">Cancel</a>
 </div>
 
 @include('app.partials._formerror')

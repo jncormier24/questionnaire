@@ -52,7 +52,7 @@ class QuizCategoryController extends Controller
         $quizcategory->updated_by_user_id = auth()->id();
         $quizcategory->save();
 
-        return redirect('/quizcategory');
+        return redirect('admin.quizcategory');
     }
 
     /**
@@ -79,7 +79,7 @@ class QuizCategoryController extends Controller
             'name' => 'required'
         ]));
 
-        return redirect('/quizcategory');
+        return redirect('admin.quizcategory');
     }
 
     /**
@@ -92,6 +92,6 @@ class QuizCategoryController extends Controller
     {
         $quizcategory->delete();
 
-        return redirect('/quizcategory');
+        return redirect('admin.quizcategory');
     }
 }

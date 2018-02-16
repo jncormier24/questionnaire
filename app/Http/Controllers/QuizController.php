@@ -52,7 +52,7 @@ class QuizController extends Controller
             'updated_by_user_id' => auth()->user()->id
         ]);
 
-        return redirect("/quiz");
+        return redirect()->route('admin.quiz.index');
     }
 
     /**
@@ -81,7 +81,7 @@ class QuizController extends Controller
             'name' => 'required'
         ]));
 
-        return redirect('/quiz');
+        return redirect()->route('admin.quiz.index');
     }
 
     /**
@@ -94,7 +94,7 @@ class QuizController extends Controller
     {
         $quiz->delete();
 
-        return redirect('/quiz');
+        return redirect()->route('admin.quiz.index');
     }
 
     /**
@@ -112,7 +112,7 @@ class QuizController extends Controller
 
         $quiz->users()->save($user);
 
-        return redirect('/quiz/' . $quiz->id . '/edit');
+        return redirect()->route('admin.quiz.edit', $quiz->id);
     }
 
     /**

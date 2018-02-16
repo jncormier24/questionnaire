@@ -64,7 +64,7 @@ class QuestionController extends Controller
 
         $question->save();
 
-        return redirect('/question');
+        return redirect()->route('admin.question.index');
     }
 
     /**
@@ -95,7 +95,7 @@ class QuestionController extends Controller
             'answer_type_id' => 'required'
         ]));
 
-        return redirect('/question');
+        return redirect()->route('admin.question.index');
     }
 
     /**
@@ -108,6 +108,6 @@ class QuestionController extends Controller
     {
         $question->delete();
 
-        return redirect('/question');
+        return redirect()->route('admin.question.index');
     }
 }

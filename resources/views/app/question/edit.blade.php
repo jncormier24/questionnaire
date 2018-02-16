@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <form method="post" action="/question/{{ $question->id }}">
+            <form action="{{ route('admin.question.update', $question->id) }}" method="POST">
                 {{ method_field('PATCH') }}
                 {{ csrf_field() }}
 

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-12"><h3>Assigned Quizzes</h3></div>
     </div>
-    @if(count(auth()->user()->quizzes) < 1)
+    @if(count(auth()->user()->quizzes) == 0)
     <div class="row">
         <div class="col-12">
             <div class="panel panel-default">
@@ -13,20 +13,21 @@
             </div>
         </div>
     </div>
-    @endif
-    @foreach(auth()->user()->quizzes as $quiz)
-    <div class="row">
-        <div class="col-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="/quiz/evaluation/{{ $quiz->id }}" class="btn btn-primary">Start Quiz</a>
-                </div>
-                <div class="panel-body">
-                  <p>{{ $quiz->name }}</p>
+    @else
+        @foreach(auth()->user()->quizzes as $quiz)
+        <div class="row">
+            <div class="col-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <a href="/quiz/evaluation/{{ $quiz->id }}" class="btn btn-primary">Start Quiz</a>
+                    </div>
+                    <div class="panel-body">
+                      <p>{{ $quiz->name }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    @endforeach
+        @endforeach
+    @endif
 </div>
 @endsection

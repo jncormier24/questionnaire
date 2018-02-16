@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Role;
-use App\Permission;
 
-class PermissionController extends Controller
+class CourseController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +13,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        $permissions = Permission::all();
-
-        return view('app.permissions.all', compact('roles', 'permissions'));
+        //
     }
 
     /**
@@ -28,7 +23,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('app.permissions.create');
+        //
     }
 
     /**
@@ -48,20 +43,20 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
+    public function show($id)
     {
-
+        //
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Permission $permission)
+    public function edit($id)
     {
-        return view('app.permissions.edit', compact('permission'));
+        //
     }
 
     /**
@@ -71,14 +66,9 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, $id)
     {
-       $permission->update(request()->validate([
-            'name' => 'required',
-            'label' => 'required'
-        ]));
-
-        return redirect()->route('admin.permission.index');
+        //
     }
 
     /**

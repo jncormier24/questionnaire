@@ -167,7 +167,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Auth0\Login\LoginServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -193,6 +193,7 @@ return [
     'aliases' => [
 
         'App' => Illuminate\Support\Facades\App::class,
+        'Auth0' => Auth0\Login\Facade\Auth0::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,

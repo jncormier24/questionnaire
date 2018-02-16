@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <form action="/permission/{{ $permission->id }}" method="POST">
+            <form action="{{ route('admin.permission'), $permission->id }}" method="POST">
                 {{ csrf_field() }}
                 {{ method_field('PATCH') }}
 
