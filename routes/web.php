@@ -2,8 +2,6 @@
 
 Auth::routes();
 
-Route::get('/auth0/callback', '\Auth0\Login\Auth0Controller@callback');
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'AppController@index');
     Route::get('/home', 'AppController@index');
@@ -24,4 +22,3 @@ Route::middleware(['auth'])->group(function () {
     // expanded routes
     Route::get('/quiz/evaluation/{quiz}', 'QuizController@showEvaluation');
 });
-

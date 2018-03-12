@@ -22,4 +22,16 @@ class AnswerTest extends TestCase
         $this->get("/quiz/evaluation/{$quiz->id}")->assertSee($quiz->name);
     }
 
+    /** @test */
+    public function aUserMayAnswerAQuestion () {
+        $user = factory(\App\User::class)->create();
+
+        $this->be($user);
+
+        $quiz = factory(\App\Quiz::class)->create();
+
+        $quiz->users()->save($user);
+
+        dd($quiz->questions()->count());
+    }
 }

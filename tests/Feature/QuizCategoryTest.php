@@ -17,14 +17,14 @@ class QuizCategoryTest extends TestCase
 
         $quizCat = factory(\App\QuizCategory::class)->create();
 
-        $this->get('/quizcategory')->assertSee($quizCat->name);
+        $this->get('/admin/quizcategory')->assertSee($quizCat->name);
     }
 
     /** @test */
     public function itsCreateFormCanBeSeenByALoggedInUser () {
         $this->actingAs(factory(\App\User::class)->create());
 
-        $this->get('/quizcategory/create')->assertSee('Create Quiz Category');
+        $this->get('/admin/quizcategory/create')->assertSee('Create Quiz Category');
     }
 
     /** @test */
@@ -33,9 +33,9 @@ class QuizCategoryTest extends TestCase
 
         $quizCat = factory(\App\QuizCategory::class)->make();
 
-        $this->post('/quizcategory', $quizCat->toArray());
+        $this->post('/admin/quizcategory', $quizCat->toArray());
 
-        $this->get('/quizcategory')->assertSee($quizCat->name);
+        $this->get('/admin/quizcategory')->assertSee($quizCat->name);
     }
 
     /** @test */
@@ -44,13 +44,13 @@ class QuizCategoryTest extends TestCase
 
         $quizcategory = factory(\App\QuizCategory::class)->create();
 
-        $this->post('/quizcategory', $quizcategory->toArray());
+        $this->post('/admin/quizcategory', $quizcategory->toArray());
 
         $quizcategory->name = 'Changed';
 
-        $response = $this->patch("/quizcategory/{$quizcategory->id}", $quizcategory->toArray());
+        $response = $this->patch("/admin/quizcategory/{$quizcategory->id}", $quizcategory->toArray());
 
-        $this->get('/quizcategory')->assertSee('Changed');
+        $this->get('/admin/quizcategory')->assertSee('Changed');
     }
 
     /** @test */
@@ -59,7 +59,7 @@ class QuizCategoryTest extends TestCase
 
         $quizcat = factory(\App\QuizCategory::class)->create();
 
-        $this->get("/quizcategory/{$quizcat->id}/edit")->assertSee('Edit Quiz Category');
+        $this->get("/admin/quizcategory/{$quizcat->id}/edit")->assertSee('Edit Quiz Category');
     }
 
     /** @test */
@@ -69,7 +69,7 @@ class QuizCategoryTest extends TestCase
         $quizcategory = factory(\App\QuizCategory::class)->create();
 
         // delete the post
-        $this->json('DELETE', "/quizcategory/{$quizcategory->id}");
+        $this->json('DELETE', "/admin/quizcategory/{$quizcategory->id}");
 
         $this->assertDatabaseMissing('quiz_category', $quizcategory->toArray());
     }

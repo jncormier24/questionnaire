@@ -14,9 +14,9 @@ class QuestionTest extends TestCase
 
         $question = factory(\App\Question::class)->create(['updated_by_user_id' => auth()->id()]);
 
-        $this->post('/question', $question->toArray());
+        $this->post('/admin/question', $question->toArray());
 
-        $this->get('/question')->assertSee($question->text);
+        $this->get('/admin/question')->assertSee($question->text);
     }
 
     /** @test */
@@ -25,9 +25,9 @@ class QuestionTest extends TestCase
 
         $question = factory(\App\Question::class)->create(['updated_by_user_id' => auth()->id()]);
 
-        $this->post('/question', $question->toArray());
+        $this->post('/admin/question', $question->toArray());
 
-        $this->get("/question/{$question->id}/edit")->assertSee($question->text);
+        $this->get("/admin/question/{$question->id}/edit")->assertSee($question->text);
     }
 
     /** @test */
@@ -36,23 +36,23 @@ class QuestionTest extends TestCase
 
         $question = factory(\App\Question::class)->create(['updated_by_user_id' => auth()->id()]);
 
-        $this->post('/question', $question->toArray());
+        $this->post('/admin/question', $question->toArray());
 
-        $response = $this->patch("/question/{$question->id}", [
+        $response = $this->patch("/admin/question/{$question->id}", [
             'text' => 'Changed',
             'notes' => 'Changed Notes',
             'quiz_id' => 1,
             'answer_type_id' => 1
         ]);
 
-        $this->get('/question')->assertSee('Changed');
+        $this->get('/admin/question')->assertSee('Changed');
     }
 
     /** @test */
     public function aLoggedInUserCanSeeTheEditForm () {
         $this->actingAs(factory(\App\User::class)->create());
 
-        $this->get('/question/create')->assertSee('Question');
+        $this->get('/admin/question/create')->assertSee('Question');
     }
 
     /** @test */
@@ -62,7 +62,7 @@ class QuestionTest extends TestCase
         $question = factory(\App\Question::class)->create(['updated_by_user_id' => auth()->id()]);
 
         // delete the post
-        $this->json('DELETE', "/question/{$question->id}");
+        $this->json('DELETE', "/admin/question/{$question->id}");
 
         $this->assertDatabaseMissing('question', $question->toArray());
     }

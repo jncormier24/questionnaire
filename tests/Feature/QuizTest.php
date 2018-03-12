@@ -14,7 +14,7 @@ class QuizTest extends TestCase
         $quiz = factory(\App\Quiz::class)->create();
         $user = factory(\App\User::class)->create();
 
-        $response = $this->actingAs($user)->get("/quiz");
+        $response = $this->actingAs($user)->get("/admin/quiz");
 
         $response->assertSee($quiz->name);
     }
@@ -24,7 +24,7 @@ class QuizTest extends TestCase
         $quiz = factory(\App\Quiz::class)->create();
         $user = factory(\App\User::class)->create();
 
-        $response = $this->actingAs($user)->get("/quiz/{$quiz->id}/edit");
+        $response = $this->actingAs($user)->get("/admin/quiz/{$quiz->id}/edit");
 
         $response->assertSee($quiz->name);
     }
@@ -33,7 +33,7 @@ class QuizTest extends TestCase
     public function aUserCanSeeCreateAQuizForm () {
         $user = factory(\App\User::class)->create();
 
-        $response = $this->actingAs($user)->get("/quiz/create");
+        $response = $this->actingAs($user)->get("/admin/quiz/create");
 
         $response->assertSee('Quiz Name');
     }
@@ -45,9 +45,9 @@ class QuizTest extends TestCase
         // create a quiz instance with make()
         $quiz = factory(\App\Quiz::class)->create();
         // submit the quiz to post with toArray() on the quiz
-        $this->post('/quiz', $quiz->toArray());
+        $this->post('/admin/quiz', $quiz->toArray());
         // visit the single quiz page
-        $response = $this->get("/quiz");
+        $response = $this->get("/admin/quiz");
         // assert the name is there
         $response->assertSee($quiz->name);
     }
@@ -59,13 +59,13 @@ class QuizTest extends TestCase
 
         $quiz = factory(\App\Quiz::class)->create();
 
-        $this->post('/quiz', $quiz->toArray());
+        $this->post('/admin/quiz', $quiz->toArray());
 
-        $this->patch("/quiz/{$quiz->id}", [
+        $this->patch("/admin/quiz/{$quiz->id}", [
             'name' => 'Changed'
         ]);
 
-        $this->get('/quiz')->assertSee('Changed');
+        $this->get('/admin/quiz')->assertSee('Changed');
     }
 
     /** @test */
@@ -73,7 +73,7 @@ class QuizTest extends TestCase
         // create a quiz instance with make()
         $quiz = factory(\App\Quiz::class)->create();
         // submit the quiz to post with toArray() on the quiz
-        $response = $this->post('/quiz', $quiz->toArray());
+        $response = $this->post('/admin/quiz', $quiz->toArray());
 
         $response->assertSee("/login");
     }
@@ -86,10 +86,10 @@ class QuizTest extends TestCase
         // create a quiz and persist it
         $quiz = factory(\App\Quiz::class)->create(['updated_by_user_id' => auth()->id()]);
 
-        $this->post('/quiz', $quiz->toArray());
+        $this->post('/admin/quiz', $quiz->toArray());
 
         // delete the post
-        $this->json('DELETE', "/quiz/{$quiz->id}");
+        $this->json('DELETE', "/admin/quiz/{$quiz->id}");
 
         $this->assertDatabaseMissing('quiz', $quiz->toArray());
     }
@@ -112,7 +112,7 @@ class QuizTest extends TestCase
 
         $quiz = factory(\App\Quiz::class)->create();
 
-        $this->post('/quiz/'. $quiz->id . '/user', [
+        $this->post('/admin/quiz/'. $quiz->id . '/user', [
             'user_id' => $user->id
         ]);
 

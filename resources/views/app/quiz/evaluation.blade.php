@@ -10,9 +10,10 @@
         </div>
     </div>
     @include('app.partials._formerror')
-    <form action="/answer" method="POST">
+    <form action="/admin/answer" method="POST">
         {{ csrf_field() }}
         <input type="hidden" name="quiz_id" value="{{ $quiz->id }}" />
+        <input type="hidden" name="answered_by_user_id" value="{{ auth()->user()->id }}">
         @foreach($quiz->questions as $question) 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -26,12 +27,11 @@
             </div>
         </div>
         @endforeach
-        <button type="submit" class="btn btn-success">Save</button>
-        <a href="/home" class="btn btn-danger">Cancel</a>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="form-group">
-                    
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="/home" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
         </div>

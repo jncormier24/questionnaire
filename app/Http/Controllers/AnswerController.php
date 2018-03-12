@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Question;
 use Illuminate\Http\Request;
 
 class AnswerController extends Controller
@@ -11,6 +12,7 @@ class AnswerController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,19 +32,20 @@ class AnswerController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'type' => 'required',
             'answer' => 'required',
-            'question_id' => 'required'
+            'quiz_id' => 'required',
+            'answered_by_user_id' => 'required'
         ]);
-        $data['answered_by_user_id'] = auth()->id();
 
-        foreach ($data['answer'] as $answerData) {
-            Answer::save([
-                'type' => request('type'),
-                'answer' => $answerData,
-                'question_id' => request('question_id'),
-                'answered_by_user_id' => auth()->user()->id
-            ]);
+        foreach ($data['answer'] as $question => $answerText) {
+            $question = Question::find($question);
+            $answer = new Answer;
+            $answer->type = $question->answer_type_id;
+            $answer->answer = $answerText;
+            $answer->question_id = $question->id;
+            $answer->answered_by_user_id = request('answered_by_user_id');
+
+            $answer->save();
         }
 
         return redirect('/home');
