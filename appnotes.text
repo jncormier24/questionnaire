@@ -1,0 +1,20 @@
+Framework
+- Control
+- - Answer
+- - - Text
+- - - Proof (upload, probably) - Can be uploaded new or linked to prexisting
+- - - Severity (1 to 5)
+- - - Probability (1 to 5)
+- - - Caluclated Risk (S * P) - 1 is low risk 25 is high risk
+- - - Importance (1 to 5) - this is how much the client cares about the risk
+- - - Compliance (need a different word) (CR * I) - this how urgent the risk is - 1 they don't care and 125 they need to fix right now
+
+
+Company
+- Users
+- - Admins (this should be an app role now)
+- Documents and Solutions
+- - Uploads to company and prior solutions and proof of compliance
+- Training
+- - A csv of current training can be downloaded with the company's status
+- - - includes each user's training and most recent course completion
